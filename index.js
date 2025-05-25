@@ -11,7 +11,9 @@ const DOM = {
     level: document.getElementById("corr-level"),
     pearson: document.getElementById("pearson"),
     r2: document.getElementById("r2"),
-    epsilon: document.getElementById("sigma-epsilon"),
+    epsilon: document.getElementById("epsilon"),
+    epsilon_squared: document.getElementById("epsilon-squared"),
+    sigma_epsilon: document.getElementById("sigma-epsilon"),
   },
 }
 
@@ -39,7 +41,7 @@ function clearWarning() {
 function clearOutputs() {
   Object.values(DOM.outputFields).forEach(el => el.textContent = "-")
   DOM.outputFields.equation.innerHTML = "-"
-  DOM.outputFields.epsilon.innerHTML = "-"
+  DOM.outputFields.sigma_epsilon.innerHTML = "-"
   DOM.rumusContainer.innerHTML = ""
 }
 
@@ -55,6 +57,10 @@ function calculateRegression(xRaw, yRaw) {
     sigma_y2 += yRaw[i] ** 2
   }
 
+  const x_bar = xRaw.reduce((acc, curr) => acc + curr, 0) / n
+  const y_bar = yRaw.reduce((acc, curr) => acc + curr, 0) / n
+  const sigma_x_squared = sigma_x**2
+
   const SSxy = sigma_xy - (sigma_x * sigma_y) / n
   const SSxx = sigma_x2 - sigma_x_squared / n
   const b = SSxy / SSxx
@@ -64,15 +70,24 @@ function calculateRegression(xRaw, yRaw) {
 
   const yHat = xRaw.map(x => b * x + a)
   const epsilon = yRaw.map((y, i) => y - yHat[i])
-  const sigmaEpsilon = epsilon.reduce((sum, e) => sum + e ** 2, 0)
+  const epsilonSquared = epsilon.map(e => e**2)
+  const sigmaEpsilon = epsilonSquared.reduce((sum, e) => sum + e, 0)
+
+  console.log(epsilon)
+  console.log(epsilonSquared)
+  console.log(sigmaEpsilon)
 
   const r = (n * sigma_xy - sigma_x * sigma_y) /
     Math.sqrt((n * sigma_x2 - sigma_x ** 2) * (n * sigma_y2 - sigma_y ** 2))
 
-  return { a, b, r, r2: r ** 2, sigmaEpsilon }
+  return { a, b, r, r2: r ** 2, epsilon, epsilonSquared, sigmaEpsilon }
 }
 
-function renderOutputs({ a, b, r, r2, sigmaEpsilon }) {
+function renderOutputs({ a, b, r, r2, epsilon, epsilonSquared, sigmaEpsilon }) {
+  console.log(epsilon)
+  console.log(epsilonSquared)
+  console.log(sigmaEpsilon)
+  
   currentA = a
   currentB = b
 
@@ -92,8 +107,10 @@ function renderOutputs({ a, b, r, r2, sigmaEpsilon }) {
   DOM.outputFields.level.textContent = corrLevel
   DOM.outputFields.pearson.textContent = r.toFixed(6)
   DOM.outputFields.r2.textContent = (r2 * 100).toFixed(6)
-  DOM.outputFields.epsilon.innerHTML = `
-    Σε² = <strong>${sigmaEpsilon.toFixed(4)}</strong>
+  DOM.outputFields.epsilon = epsilon.toFixed(6)
+  DOM.outputFields.epsilon_squared = epsilonSquared.toFixed(6)
+  DOM.outputFields.sigma_epsilon.innerHTML = `
+    ${sigmaEpsilon.toFixed(6)}
     <br><small><em>ε = y - ŷ</em></small>
   `
 }
