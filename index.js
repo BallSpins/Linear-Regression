@@ -5,6 +5,11 @@ const DOM = {
   predictXInput: document.getElementById("predictXInput"),
   predictYOutput: document.getElementById("predictYOutput"),
   rumusContainer: document.getElementById("rumus-container"),
+  findXbarInput: document.getElementById('findXbarInput'),
+  findYbarInput: document.getElementById('findYbarInput'),
+  findSSxyInput: document.getElementById('findSSxyInput'),
+  findSSxxInput: document.getElementById('findSSxxInput'),
+  findYoutput: document.getElementById('findYOutput'),
   outputFields: {
     equation: document.getElementById("equation"),
     type: document.getElementById("corr-type"),
@@ -173,7 +178,32 @@ function handlePrediction() {
   }
 }
 
+function handleFindY() {
+  const x_bar = parseFloat(DOM.findXbarInput.value.trim())
+  const y_bar = parseFloat(DOM.findYbarInput.value.trim())
+  const SSxy = parseFloat(DOM.findSSxyInput.value.trim())
+  const SSxx = parseFloat(DOM.findSSxxInput.value.trim())
+
+  if(!isNaN(x_bar) && !isNaN(y_bar) && !isNaN(SSxy) && !isNaN(SSxx)) {
+    const bfy = SSxy/SSxx
+    console.log(bfy)
+    const afy1 = y_bar - parseFloat(bfy.toFixed(1)) * x_bar
+    const afy2 = y_bar - parseFloat(bfy.toFixed(2)) * x_bar
+    const afy4 = y_bar - parseFloat(bfy.toFixed(4)) * x_bar
+    const afy = (afy1 + afy2 + afy4) / 3
+    console.log(afy)
+    const sign = afy < 0 ? '-' : '+'
+    DOM.findYoutput.textContent = `${bfy.toFixed(4)}x ${sign} ${afy.toFixed(4)}`
+  } else {
+    DOM.findYoutput.textContent = '-'
+  }
+}
+
 // Attach event listeners
 DOM.xInput.addEventListener("input", updateOutput)
 DOM.yInput.addEventListener("input", updateOutput)
 DOM.predictXInput.addEventListener("input", handlePrediction)
+DOM.findXbarInput.addEventListener('input', handleFindY)
+DOM.findYbarInput.addEventListener('input', handleFindY)
+DOM.findSSxyInput.addEventListener('input', handleFindY)
+DOM.findSSxxInput.addEventListener('input', handleFindY)

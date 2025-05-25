@@ -100,17 +100,79 @@
           <h2 class="text-xl font-semibold text-blue-700 mb-4 border-b border-blue-200 pb-2">
             Prediksi Nilai Y
           </h2>
-          <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
-            Masukkan nilai X:
-          </label>
-          <input
-            id="predictXInput"
-            type="text"
-            class="w-full border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
-            placeholder="Contoh: 55"
-          />
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
+                Masukkan nilai X:
+              </label>
+              <input
+                id="predictXInput"
+                type="text"
+                class="w-full border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
+                placeholder="Contoh: 55"
+              />
+            </div>
+            <p class="mt-4 text-gray-800 text-xl font-semibold text-center">
+              ŷ = <span id="predictYOutput">-</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="bg-blue-50 rounded-xl p-6 shadow-sm">
+          <h2 class="text-xl font-semibold text-blue-700 mb-4 border-b border-blue-200 pb-2">
+            Mencari ŷ berdasarkan x̄, ȳ, SS<sub>xy</sub>, SS<sub>xx</sub>
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
+                Masukkan nilai x̄:
+              </label>
+              <input
+                id="findXbarInput"
+                type="text"
+                class="w-96 border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
+                placeholder="Contoh: 55"
+              />
+            </div>
+
+            <div>
+              <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
+                Masukkan nilai ȳ:
+              </label>
+              <input
+                id="findYbarInput"
+                type="text"
+                class="w-96 border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
+                placeholder="Contoh: 55"
+              />
+            </div>
+
+            <div>
+              <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
+                Masukkan nilai SS<sub>xy</sub>:
+              </label>
+              <input
+                id="findSSxyInput"
+                type="text"
+                class="w-96 border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
+                placeholder="Contoh: 55"
+              />
+            </div>
+
+            <div>
+              <label for="predictXInput" class="block text-gray-700 font-medium mb-2">
+                Masukkan nilai SS<sub>xx</sub>:
+              </label>
+              <input
+                id="findSSxxInput"
+                type="text"
+                class="w-96 border border-gray-300 rounded-xl p-3 text-lg text-gray-800 input-focus transition mb-4"
+                placeholder="Contoh: 55"
+              />
+            </div>
+          </div>
           <p class="mt-4 text-gray-800 text-xl font-semibold text-center">
-            ŷ = <span id="predictYOutput">-</span>
+            ŷ = <span id="findYOutput">-</span>
           </p>
         </section>
       </div>
