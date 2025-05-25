@@ -107,8 +107,8 @@ function renderOutputs({ a, b, r, r2, epsilon, epsilonSquared, sigmaEpsilon }) {
   DOM.outputFields.level.textContent = corrLevel
   DOM.outputFields.pearson.textContent = r.toFixed(6)
   DOM.outputFields.r2.textContent = (r2 * 100).toFixed(6)
-  DOM.outputFields.epsilon = epsilon.toFixed(6)
-  DOM.outputFields.epsilon_squared = epsilonSquared.toFixed(6)
+  // DOM.outputFields.epsilon = epsilon.toFixed(6)
+  // DOM.outputFields.epsilon_squared = epsilonSquared.toFixed(6)
   DOM.outputFields.sigma_epsilon.innerHTML = `
     ${sigmaEpsilon.toFixed(6)}
     <br><small><em>ε = y - ŷ</em></small>
