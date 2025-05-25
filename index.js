@@ -55,8 +55,10 @@ function calculateRegression(xRaw, yRaw) {
     sigma_y2 += yRaw[i] ** 2
   }
 
-  const b = (n * sigma_xy - sigma_x * sigma_y) / (n * sigma_x2 - sigma_x ** 2)
-  const a = (sigma_y - b * sigma_x) / n
+  const SSxy = sigma_xy - (sigma_x * sigma_y) / n
+  const SSxx = sigma_x2 - sigma_x_squared / n
+  const b = SSxy / SSxx
+  const a = y_bar - b * x_bar
 
   if (!isFinite(a) || !isFinite(b)) return null
 
